@@ -1,0 +1,483 @@
+@charset "UTF-8";
+body {
+  background-color: white;
+  margin: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: start;
+}
+
+@-webkit-keyframes rotating {
+  from {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+@keyframes rotating {
+  from {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+span.spacer {
+  padding-bottom: 30px;
+  content: "";
+}
+
+#lavadora {
+  display: -ms-grid;
+  display: grid;
+  width: 40vw;
+  -ms-grid-rows: 1fr auto;
+      grid-template-rows: 1fr auto;
+  background-color: antiquewhite;
+      grid-template-areas: "panel" "ventana";
+}
+
+#lavadora .panel {
+  width: auto !important;
+  font-size: 0.6666666rem;
+}
+
+#lavadora .ventana {
+  -ms-grid-row: 2;
+  -ms-grid-column: 1;
+  grid-area: ventana;
+  background-color: black;
+  border-radius: 99999999999px;
+  margin: 60px;
+  aspect-ratio: 1/1;
+  background-color: #2a2a72;
+  background-image: linear-gradient(315deg, #383838 0%, #747474 74%);
+}
+
+#lavadora .ventana.lavando {
+  -webkit-animation: rotating 2s linear infinite;
+          animation: rotating 2s linear infinite;
+  background-color: #2a2a72;
+  background-image: linear-gradient(315deg, #2a2a72 0%, #009ffd 74%);
+}
+
+#lavadora .ventana.spinning {
+  -webkit-animation: rotating 2s linear infinite;
+          animation: rotating 2s linear infinite;
+}
+
+.panel {
+  -ms-grid-row: 1;
+  -ms-grid-column: 1;
+  grid-area: panel;
+  position: relative;
+  width: 60vw;
+  aspect-ratio: 4/1;
+  background-color: #c0aa8e;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: min-content min-content auto min-content;
+      grid-template-columns: -webkit-min-content -webkit-min-content auto -webkit-min-content;
+      grid-template-columns: min-content min-content auto min-content;
+      grid-template-areas: "c-detergente c-suavizante c-dial display";
+}
+
+.panel .cargador {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  aspect-ratio: 0.5/1;
+  height: 100%;
+}
+
+.panel .cargador > p {
+  margin: 0;
+  font-family: 'Pattaya', sans-serif;
+}
+
+.panel .cargador.detergente {
+  -ms-grid-row: 1;
+  -ms-grid-column: 1;
+  grid-area: c-detergente;
+  --liquid-color: red;
+}
+
+.panel .cargador.suavizante {
+  -ms-grid-row: 1;
+  -ms-grid-column: 2;
+  grid-area: c-suavizante;
+  --liquid-color: blue;
+}
+
+.panel .cargador .ventana-carga {
+  position: relative;
+  height: 60%;
+  width: 10%;
+}
+
+.panel .cargador .ventana-carga::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: var(--fill-pt);
+  border-radius: 999999999999999999px;
+  background: var(--liquid-color);
+  -webkit-transition: height 1s ease-in-out;
+  transition: height 1s ease-in-out;
+}
+
+.panel .contenedor-dial {
+  -ms-grid-row: 1;
+  -ms-grid-column: 3;
+  grid-area: c-dial;
+  display: -ms-grid;
+  display: grid;
+      grid-template-areas: "option-1 option-1 option-1 option-1 option-1" "option-2   dial     dial     dial   option-8" "option-3   dial     dial     dial   option-9" "option-4   dial     dial     dial   option-10" "option-5   dial     dial     dial   option-11" "option-6   dial     dial     dial   option-12" "option-7   dial     dial     dial   option-13";
+}
+
+.panel .contenedor-dial .dial-container {
+  -ms-grid-row: 2;
+  -ms-grid-row-span: 6;
+  -ms-grid-column: 2;
+  -ms-grid-column-span: 3;
+  grid-area: dial;
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.panel .contenedor-dial .dial-container .dial {
+  position: relative;
+  aspect-ratio: 1/1;
+  background-color: gray;
+  min-height: 100%;
+  border-radius: 9999999999999999px;
+}
+
+.panel .contenedor-dial .dial-container .dial::after {
+  position: absolute;
+  content: '';
+  height: 50%;
+  top: 0;
+  left: calc(50% - (3px / 2));
+  width: 3px;
+  background-color: black;
+  border-bottom-left-radius: 99999999px;
+  border-bottom-right-radius: 99999999px;
+  -webkit-transform: rotate(var(--rotation));
+          transform: rotate(var(--rotation));
+  -webkit-transform-origin: bottom center;
+          transform-origin: bottom center;
+  -webkit-transition: -webkit-transform 1s ease-in-out;
+  transition: -webkit-transform 1s ease-in-out;
+  transition: transform 1s ease-in-out;
+  transition: transform 1s ease-in-out, -webkit-transform 1s ease-in-out;
+}
+
+.panel .contenedor-dial .option {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  color: black;
+  -webkit-transition: color .3s ease-in-out;
+  transition: color .3s ease-in-out;
+  cursor: pointer;
+}
+
+.panel .contenedor-dial .option:hover {
+  color: #757575;
+}
+
+.panel .contenedor-dial .option p {
+  font-family: 'Odibee Sans', cursive;
+  margin: 0;
+}
+
+.panel .contenedor-dial .option[value="1"] {
+  -ms-grid-row: 1;
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 5;
+  grid-area: option-1;
+}
+
+.panel .contenedor-dial .option[value="2"] {
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -ms-grid-row: 2;
+  -ms-grid-column: 1;
+  grid-area: option-2;
+}
+
+.panel .contenedor-dial .option[value="3"] {
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -ms-grid-row: 3;
+  -ms-grid-column: 1;
+  grid-area: option-3;
+}
+
+.panel .contenedor-dial .option[value="4"] {
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -ms-grid-row: 4;
+  -ms-grid-column: 1;
+  grid-area: option-4;
+}
+
+.panel .contenedor-dial .option[value="5"] {
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -ms-grid-row: 5;
+  -ms-grid-column: 1;
+  grid-area: option-5;
+}
+
+.panel .contenedor-dial .option[value="6"] {
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -ms-grid-row: 6;
+  -ms-grid-column: 1;
+  grid-area: option-6;
+}
+
+.panel .contenedor-dial .option[value="7"] {
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -ms-grid-row: 7;
+  -ms-grid-column: 1;
+  grid-area: option-7;
+}
+
+.panel .contenedor-dial .option[value="8"] {
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  -ms-grid-row: 2;
+  -ms-grid-column: 5;
+  grid-area: option-8;
+}
+
+.panel .contenedor-dial .option[value="9"] {
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  -ms-grid-row: 3;
+  -ms-grid-column: 5;
+  grid-area: option-9;
+}
+
+.panel .contenedor-dial .option[value="10"] {
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  -ms-grid-row: 4;
+  -ms-grid-column: 5;
+  grid-area: option-10;
+}
+
+.panel .contenedor-dial .option[value="11"] {
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  -ms-grid-row: 5;
+  -ms-grid-column: 5;
+  grid-area: option-11;
+}
+
+.panel .contenedor-dial .option[value="12"] {
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  -ms-grid-row: 6;
+  -ms-grid-column: 5;
+  grid-area: option-12;
+}
+
+.panel .contenedor-dial .option[value="13"] {
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  -ms-grid-row: 7;
+  -ms-grid-column: 5;
+  grid-area: option-13;
+}
+
+.panel .display {
+  -ms-grid-row: 1;
+  -ms-grid-column: 4;
+  grid-area: display;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  aspect-ratio: 1.25/1;
+  height: 100%;
+}
+
+.panel .display .pantalla-container {
+  aspect-ratio: 1.95/1;
+  width: 80%;
+  background-color: black;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: auto 33%;
+      grid-template-columns: auto 33%;
+      grid-template-areas: "tiempo fase";
+}
+
+.panel .display .pantalla-container .tiempo-container {
+  -ms-grid-row: 1;
+  -ms-grid-column: 1;
+  grid-area: tiempo;
+  color: green;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  padding-left: 7px;
+}
+
+.panel .display .pantalla-container .tiempo-container span {
+  font-family: 'Open Sans Condensed', sans-serif;
+  font-size: 3em;
+}
+
+.panel .display .pantalla-container .fase-container {
+  -ms-grid-row: 1;
+  -ms-grid-column: 2;
+  grid-area: fase;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  font-size: .75em;
+}
+
+.panel .display .pantalla-container .fase-container .item {
+  font-family: 'Open Sans Condensed', sans-serif;
+  color: white;
+  position: relative;
+}
+
+.panel .display .pantalla-container .fase-container .item.active::before {
+  content: '🟢';
+}
+
+.panel .display .pantalla-container .fase-container .item::before {
+  content: '⚫';
+  left: -1.5em;
+  position: absolute;
+}
+
+.panel .display .botonera {
+  aspect-ratio: 5/1;
+  width: 80%;
+  background-color: gray;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  border-radius: 999999999px;
+}
+
+.panel .display .botonera .boton {
+  font-family: 'Pattaya', sans-serif;
+  width: 100%;
+  border: black 1px solid;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-transition: background-color .3s ease-in-out;
+  transition: background-color .3s ease-in-out;
+  cursor: pointer;
+}
+
+.panel .display .botonera .boton:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.panel .display .botonera .boton.start {
+  border-top-left-radius: 9999999999px;
+  border-bottom-left-radius: 9999999999px;
+}
+
+.panel .display .botonera .boton.spin {
+  border-top-right-radius: 9999999999px;
+  border-bottom-right-radius: 9999999999px;
+}
+/*# sourceMappingURL=index.css.map */

@@ -1,0 +1,273 @@
+body {
+  background-color: white;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+}
+
+@keyframes rotating {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+span.spacer {
+  padding-bottom: 30px;
+  content: "";
+}
+
+#lavadora {
+  display: grid;
+  width: 40vw;
+  // aspect-ratio: 7/8;
+  grid-template-rows: 1fr auto;
+  background-color: antiquewhite;
+  grid-template-areas: "panel" "ventana";
+
+  .panel {
+    width: auto!important;
+    font-size: 0.6666666rem;
+  }
+
+  .ventana {
+    grid-area: ventana;
+    background-color: black;
+    border-radius: 99999999999px;
+    margin: 60px;
+    aspect-ratio: 1/1;
+    background-color: #2a2a72;
+    background-image: linear-gradient(315deg, #383838 0%, #747474 74%);
+
+    &.lavando {
+      animation: rotating 2s linear infinite;
+      background-color: #2a2a72;
+      background-image: linear-gradient(315deg, #2a2a72 0%, #009ffd 74%);
+    }
+
+    &.spinning {
+      animation: rotating 2s linear infinite;
+    }
+  }
+}
+
+.panel {
+  grid-area: panel;
+  position: relative;
+  width: 60vw;
+  aspect-ratio: 4/1;
+  background-color: rgb(192, 170, 142);
+  display: grid;
+  grid-template-columns: min-content min-content auto min-content;
+  grid-template-areas: "c-detergente c-suavizante c-dial display";
+
+  .cargador {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    aspect-ratio: 0.5/1;
+    height: 100%;
+
+    >p {
+      margin: 0;
+      font-family: 'Pattaya', sans-serif;
+    }
+
+    &.detergente {
+      grid-area: c-detergente;
+      --liquid-color: red;
+    }
+  
+    &.suavizante {
+      grid-area: c-suavizante;
+      --liquid-color: blue;
+    }
+
+    .ventana-carga {
+      position: relative;
+      height: 60%;
+      width: 10%;
+
+      &::before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: var(--fill-pt);
+        border-radius: 999999999999999999px;
+        background: var(--liquid-color);
+        transition: height 1s ease-in-out;
+      }
+    }
+  }
+  
+  .contenedor-dial {
+    grid-area: c-dial;
+    display: grid;
+    grid-template-areas:
+    "option-1 option-1 option-1 option-1 option-1"
+    "option-2   dial     dial     dial   option-8"
+    "option-3   dial     dial     dial   option-9"
+    "option-4   dial     dial     dial   option-10"
+    "option-5   dial     dial     dial   option-11"
+    "option-6   dial     dial     dial   option-12"
+    "option-7   dial     dial     dial   option-13"
+    ;
+
+    .dial-container {
+      grid-area: dial;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      .dial {
+        position: relative;
+        aspect-ratio: 1/1;
+        background-color: gray;
+        min-height: 100%;
+        border-radius: 9999999999999999px;
+
+        &::after {
+          position: absolute;
+          content: '';
+          height: 50%;
+          top: 0;
+          left: calc(50% - (3px / 2));
+          width: 3px;
+          background-color: black;
+          border-bottom-left-radius: 99999999px;
+          border-bottom-right-radius: 99999999px;
+          transform: rotate(var(--rotation));
+          transform-origin: bottom center;
+          transition: transform 1s ease-in-out;
+        }
+      }
+    }
+
+    .option {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: black;
+      transition: color .3s ease-in-out;
+      cursor: pointer;
+
+      &:hover {
+        color: rgb(117, 117, 117)
+      }
+      
+      p {
+        font-family: 'Odibee Sans', cursive;
+        margin: 0;
+      }
+      @for $var from 1 to 14 {
+        &[value="#{$var}"] {
+          @if $var == 1 {
+          } @else if $var <= 7 {
+            justify-content: flex-start;
+          } @else {
+            justify-content: flex-end;
+          }
+          grid-area: option-#{$var};
+        }
+      }
+    }
+  }
+  
+  .display {
+    grid-area: display;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    aspect-ratio: 1.25/1;
+    height: 100%;
+
+    .pantalla-container {
+      aspect-ratio: 1.95/1;
+      width: 80%;
+      background-color: black;
+      display: grid;
+      grid-template-columns: auto 33%;
+      grid-template-areas: "tiempo fase";
+
+      .tiempo-container {
+        grid-area: tiempo;
+        color: green;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        padding-left: 7px;
+        span {
+          font-family: 'Open Sans Condensed', sans-serif;
+          font-size: 3em;
+        }
+      }
+
+      .fase-container {
+        grid-area: fase;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: space-evenly;
+        font-size: .75em;
+
+        .item {
+          font-family: 'Open Sans Condensed', sans-serif;
+          color: white;
+          position: relative;
+
+          &.active::before {
+            content: '🟢';
+          }
+
+          &::before {
+            content: '⚫';
+            left: -1.5em;
+            position: absolute;
+          }
+        }
+      }
+    }
+
+    .botonera {
+      aspect-ratio: 5/1;
+      width: 80%;
+      background-color: gray;
+      display: flex;
+      border-radius: 999999999px;
+
+      .boton {
+        font-family: 'Pattaya', sans-serif;
+        width: 100%;
+        border: black 1px solid;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background-color .3s ease-in-out;
+        cursor: pointer;
+        
+        &:hover {
+          background-color: rgba(0, 0, 0, 0.2);
+        }
+
+        &.start {
+          border-top-left-radius: 9999999999px;
+          border-bottom-left-radius: 9999999999px;
+        }
+        
+        &.spin {
+          border-top-right-radius: 9999999999px;
+          border-bottom-right-radius: 9999999999px;
+
+        }
+      }
+    }
+  }
+}
